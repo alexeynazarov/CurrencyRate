@@ -25,9 +25,9 @@ public class ExchangeRate {
     }
 
     public void getRate(){
-        readfile();
+        readFile();
         if (response==null) {
-            getonline();
+            getOnline();
             if (response!=null) {
                 WriteFile writeFile = new WriteFile();
                 writeFile.start();
@@ -35,7 +35,7 @@ public class ExchangeRate {
         }
     }
 
-    private void getonline() {
+    private void getOnline() {
         try {
             HttpURLConnection connection = null;
             URL url = new URL("http://api.fixer.io/latest?base=" + basic.toString() + "&symbols=" + target.toString());
@@ -45,7 +45,7 @@ public class ExchangeRate {
                     .registerTypeAdapter(RateObject.class, new RatesDeserializer())
                     .create();
             response = gson.fromJson(in, ApiResponse.class);
-            setdate();
+            setDate();
             in.close();
         }
 
@@ -54,7 +54,7 @@ public class ExchangeRate {
         }
     }
 
-    private void readfile(){
+    private void readFile(){
         try{
             BufferedReader br = new BufferedReader (new FileReader ("rates.txt"));
             String line;
@@ -78,7 +78,7 @@ public class ExchangeRate {
         catch(Exception e){}
     }
 
-    private void setdate(){
+    private void setDate(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
        response.setDate(dateFormat.format(date));
