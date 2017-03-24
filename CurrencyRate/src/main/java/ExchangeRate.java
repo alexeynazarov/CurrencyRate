@@ -54,20 +54,6 @@ public class ExchangeRate {
         }
     }
 
-    private void writefile(){
-        try{
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("rates.txt", true)));
-            writer.write(response.getBase() + " " + response.getRates().getName() +
-                    " " + response.getRates().getRate()  + " " + response.getDate()
-                    + System.getProperty("line.separator"));
-            writer.close();
-        }
-
-        catch(Exception e){
-            System.out.println("Writing error");
-        }
-    }
-
     private void readfile(){
         try{
             BufferedReader br = new BufferedReader (new FileReader ("rates.txt"));
